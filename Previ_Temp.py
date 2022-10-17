@@ -1,20 +1,20 @@
-from xmlrpc.client import DateTime
+
 import requests
 import json
 import pyodbc
-from datetime import date, time
-
+from datetime import date, datetime
 
 a = ('Curitiba', 'Brasilia', 'Maranhão')
 for icity in a:
-    data = date.today().strftime("%d/%m/%y")
-    hour = time
+    data = datetime.today().replace(microsecond=0)
+    #hour = time
     idi = 'pt_br'
     itoken = '95bad896508cf4e07d03dcbe6b0ee65c'
     icity = icity.upper()
     iurl = f'https://api.openweathermap.org/data/2.5/weather?q={icity}&appid={itoken}&lang={idi}'
     requisicao = requests.request("GET", iurl)
     iretorno_req = json.loads(requisicao.text)
+    print(iretorno_req['cod'])
     descri = iretorno_req['weather'][0]['description']
     temp = round(iretorno_req['main']['temp'] - 273.15, 1)
     print(
@@ -27,8 +27,8 @@ for icity in a:
     print("Conexao com o banco realizada com sucesso")
     cursor = conexao.cursor()
     comando = f"""INSERT INTO PREV_TEMP(CIDADE,DATA,TEMP,DESCRI)
-    VALUES('{icity}','{data}',{temp},'{descri}')"""
-    print(comando)
+    VALUES('{icity}','{data}','{temp}','{descri}')"""
+    # print(comando)
     cursor.execute(comando)
     cursor.commit()
 print("Seus dados foram salvos com sucesso")
