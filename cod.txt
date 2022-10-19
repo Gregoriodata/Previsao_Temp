@@ -1,4 +1,3 @@
-from subprocess import ABOVE_NORMAL_PRIORITY_CLASS
 import time
 import schedule
 import requests
@@ -6,8 +5,9 @@ import json
 import pyodbc
 from datetime import date, datetime
 
-ab = 0
-while ab <= 1:
+a = 0
+while a <= 1:
+
     def fazer():
         dados_conexao = (
             "Driver={SQL Server};"  # Drive do banco utilizado.
@@ -40,9 +40,13 @@ while ab <= 1:
             cursor.execute(comando)
             cursor.commit()
         print("Seus dados foram salvos com sucesso")
-    # schedule.every().days.at("15:15").do(fazer)
+
+        #a = 0
+        # while a <= 1:
+    # schedule.every().day.at("16:02").do(fazer)
+
     schedule.every(5).seconds.do(fazer)
     schedule.run_pending()
-    print(ab)
+    print(a)
     time.sleep(5)
-    ab = ab + 1
+a = a + 1
