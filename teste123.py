@@ -5,6 +5,9 @@ import json
 import pyodbc
 from datetime import date, datetime
 
+#ab = 0
+# while ab <= 3:
+
 
 @repeat(every(1).hour)
 def fazer():
@@ -39,6 +42,16 @@ def fazer():
         cursor.execute(comando)
         cursor.commit()
     print("Seus dados foram salvos com sucesso")
+    # schedule.every().day.at("10:26").do(fazer)
+    # schedule.every(60).seconds.do(fazer) #Funciona
+    # schedule.every(1).minutes.do(fazer)  # Funciona.
+    # Funciona.
+
+    # while True:
+    #     run_pending()
+    #     #print(ab)
+    #     time.sleep(1)
+    #     #ab = ab + 1"
 
 
 while True:
