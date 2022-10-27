@@ -4,8 +4,11 @@ import requests
 import json
 import pyodbc
 from datetime import date, datetime
+import cidades
 
 
+
+#@repeat(every(1).minutes)
 @repeat(every(1).hour)
 def fazer():
     dados_conexao = (
@@ -17,7 +20,11 @@ def fazer():
     data = datetime.today().replace(microsecond=0)
     idi = 'pt_br'
     itoken = '95bad896508cf4e07d03dcbe6b0ee65c'
-    a = ('Curitiba', 'Brasilia', 'Maranhão')
+    # a = []
+    a = cidades.cid()
+    # cc = a
+    #print(a)
+    #a = ('Curitiba', 'Brasilia', 'Maranhão')
     for icity in a:
         icity = icity.upper()
         try:
@@ -40,8 +47,7 @@ def fazer():
         cursor.commit()
     print("Seus dados foram salvos com sucesso")
 
-
 while True:
     run_pending()
-    time.sleep(2)
+    time.sleep(1)
 print("Processo finalizado")
